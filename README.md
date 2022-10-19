@@ -18,10 +18,10 @@ function generateMvnCommand() {
     const groupId = document.getElementById("groupId");
     if (groupId.value === "" || groupId.value === undefined) {
         groupId.style.borderColor = "red";
+        return;
     } else {
-        groupId.style.borderColor = "black";
+        groupId.style.borderColor = "#ccc";
     }
-
     const artifactId = document.getElementById("artifactId");
     const projectVersion = document.getElementById("projectVersion");
     const mvnArchetypeGenerate = document.getElementById("mvnArchetypeGenerate");
