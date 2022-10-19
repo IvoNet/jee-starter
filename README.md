@@ -8,17 +8,20 @@ In order to run the Maven Archetype and generate a sample Jakarta EE project, pl
 ensure you have installed a [Java SE 8+ implementation](https://adoptium.net/?variant=openjdk8)
 and [Maven 3+](https://maven.apache.org/download.cgi) (we have tested with Java SE 8, Java SE 11 and Java SE 17).
 
-
 ## Generate an archetype
 
 <script>
 
 function generateMvnCommand() {
-    const mavenArchetype = document.getElementById("mavenArchetype").value;
-    const { mvnArchetypeGroupId, mvnArchetypeArtifactId, mvnArchetypeVersion } = mavenArchetype.split(",");
-    const groupId = document.getElementById("groupId").value;
-    const artifactId = document.getElementById("artifactId").value;
-    const projectVersion = document.getElementById("projectVersion").value;
+    const mavenArchetype = document.getElementById("mavenArchetype");
+    const { mvnArchetypeGroupId, mvnArchetypeArtifactId, mvnArchetypeVersion } = mavenArchetype.value.split(",");
+    const groupId = document.getElementById("groupId");
+    if (groupId.value === "" && groupId.value === undefined) {
+        groupId.style.borderColor = "red";
+    }
+
+    const artifactId = document.getElementById("artifactId");
+    const projectVersion = document.getElementById("projectVersion");
     const mvnArchetypeGenerate = document.getElementById("mvnArchetypeGenerate");
 
     if (!mavenArchetype || !groupId || !artifactId || !projectVersion) {
@@ -26,7 +29,7 @@ function generateMvnCommand() {
         return;
     }
 
-    mvnArchetypeGenerate.value = `mvn archetype:generate -DarchetypeGroupId=${mvnArchetypeGroupId} -DarchetypeArtifactId=${mvnArchetypeArtifactId} -DarchetypeVersion=${mvnArchetypeVersion} -DgroupId=${groupId} -DartifactId=${artifactId} -Dversion=${projectVersion} -DinteractiveMode=false`;
+    mvnArchetypeGenerate.value = `mvn archetype:generate -DarchetypeGroupId=${mvnArchetypeGroupId} -DarchetypeArtifactId=${mvnArchetypeArtifactId} -DarchetypeVersion=${mvnArchetypeVersion} -DgroupId=${groupId.value} -DartifactId=${artifactId.value} -Dversion=${projectVersion.value} -DinteractiveMode=false`;
 }
 
 function copyMvnCommand() {
@@ -83,7 +86,6 @@ function copyMvnCommand() {
 <script>
     generateMvnCommand();
 </script>
-
 
 ## Example projects
 
