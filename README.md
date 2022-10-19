@@ -12,26 +12,29 @@ and [Maven 3+](https://maven.apache.org/download.cgi) (we have tested with Java 
 
 <script>
 
+function isEmpty(element) {
+    if (element.value === "" || element.value === undefined) {
+        element.style.borderColor = "red";
+        return true; 
+    }
+    element.style.borderColor = "#ccc";
+    return false;
+}
+
 function generateMvnCommand() {
     const mavenArchetype = document.getElementById("mavenArchetype");
     const { mvnArchetypeGroupId, mvnArchetypeArtifactId, mvnArchetypeVersion } = mavenArchetype.value.split(",");
     const groupId = document.getElementById("groupId");
-    if (groupId.value === "" || groupId.value === undefined) {
-        groupId.style.borderColor = "red";
-        return;
-    } else {
-        groupId.style.borderColor = "#ccc";
-    }
     const artifactId = document.getElementById("artifactId");
     const projectVersion = document.getElementById("projectVersion");
     const mvnArchetypeGenerate = document.getElementById("mvnArchetypeGenerate");
 
-    if (!mavenArchetype || !groupId || !artifactId || !projectVersion) {
-        mvnArchetypeGenerate.value = "Please fill in all fields";
+    if (isEmpty(groupId) || isEmpty(artifactId) || isEmpty(projectVersion)) {
+        mvnArchetypeGenerate.value = "";
         return;
     }
 
-    mvnArchetypeGenerate.value = `mvn archetype:generate -DarchetypeGroupId=${mvnArchetypeGroupId} -DarchetypeArtifactId=${mvnArchetypeArtifactId} -DarchetypeVersion=${mvnArchetypeVersion} -DgroupId=${groupId.value} -DartifactId=${artifactId.value} -Dversion=${projectVersion.value} -DinteractiveMode=false`;
+    mvnArchetypeGenerate.value = `mvn archetype:generate -DarchetypeGroupId=${mvnArchetypeGroupId} -DarchetypeArtifactId=${mvnArchetypeArtifactId} -DarchetypeVersion=${mvnArchetypeVersion} -DgroupId=${groupId.value} -DartifactId=${artifactId.value} -Dversion=${projectVersion.value}`;
 }
 
 function copyMvnCommand() {
@@ -51,6 +54,7 @@ function copyMvnCommand() {
                 <option value="org.eclipse.starter,jakartaee10-minimal,1.0.0">Jakarta EE 10 Minimal Archetype</option>
                 <option value="org.eclipse.starter,jakartaee9.1-minimal,1.0.0">Jakarta EE 9 Minimal Archetype</option>
                 <option value="org.eclipse.starter,jakartaee8-minimal,1.0.0">Jakarta EE 8 Minimal Archetype</option>
+                <option value="nl.ivonet,jakartaee8-minimal,1.0.0">Jakarta EE 8 Minimal Archetype</option>
             </select>
         </div>
     </div>
