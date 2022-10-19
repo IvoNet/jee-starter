@@ -28,21 +28,23 @@ function emptyCheck(element) {
 function generateMvnCommand() {
     const mavenArchetype = document.getElementById("mavenArchetype");
     const mvnArchetypeGenerate = document.getElementById("mvnArchetypeGenerate");
-
     const { mvnArchetypeGroupId, mvnArchetypeArtifactId, mvnArchetypeVersion } = mavenArchetype.value.split(",");
     const groupId = document.getElementById("groupId");
+    const artifactId = document.getElementById("artifactId");
+    const projectVersion = document.getElementById("projectVersion");
+    if (isEmpty(groupId) || isEmpty(artifactId) || isEmpty(projectVersion)) {
+        mvnArchetypeGenerate.value = "";
+        return;
+    }
     if (emptyCheck(groupId)) {
         mvnArchetypeGenerate.value = mvnArchetypeGenerate.value + "\n- Please fill in the groupId";
     }
-    const artifactId = document.getElementById("artifactId");
     if (emptyCheck(artifactId)) {
         mvnArchetypeGenerate.value = mvnArchetypeGenerate.value + "\n- Please fill in the artifactId";
     }
-    const projectVersion = document.getElementById("projectVersion");
     if (emptyCheck(projectVersion)) {
         mvnArchetypeGenerate.value = mvnArchetypeGenerate.value + "\n- Please fill in the projectVersion";
     }
-
     if (isEmpty(groupId) || isEmpty(artifactId) || isEmpty(projectVersion)) {
         return;
     }
