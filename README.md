@@ -34,7 +34,6 @@ function generateMvnCommand() {
     const projectVersion = document.getElementById("projectVersion");
     if (isEmpty(groupId) || isEmpty(artifactId) || isEmpty(projectVersion)) {
         mvnArchetypeGenerate.value = "";
-        return;
     }
     if (emptyCheck(groupId)) {
         mvnArchetypeGenerate.value = mvnArchetypeGenerate.value + "\n- Please fill in the groupId";
