@@ -12,12 +12,10 @@ and [Maven 3+](https://maven.apache.org/download.cgi) (we have tested with Java 
 ## Generate an archetype
 
 <script>
+
 function generateMvnCommand() {
     const mavenArchetype = document.getElementById("mavenArchetype").value;
-    const mvnArchetypeArray = mavenArchetype.split(",");
-    const mvnArchetypeGroupId = mvnArchetypeArray[0];
-    const mvnArchetypeArtifactId = mvnArchetypeArray[1];
-    const mvnArchetypeVersion = mvnArchetypeArray[2];
+    const mvnArchetypeGroupId, mvnArchetypeArtifactId, mvnArchetypeVersion  = mavenArchetype.split(",");
 
     const groupId = document.getElementById("groupId").value;
     const artifactId = document.getElementById("artifactId").value;
