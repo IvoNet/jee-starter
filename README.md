@@ -12,7 +12,7 @@ and [Maven 3+](https://maven.apache.org/download.cgi) (we have tested with Java 
 
 <script>
 
-function isEmpty(element) {
+function emptyCheck(element) {
     if (element.value === "" || element.value === undefined) {
         element.style.borderColor = "red";
         return true; 
@@ -23,13 +23,21 @@ function isEmpty(element) {
 
 function generateMvnCommand() {
     const mavenArchetype = document.getElementById("mavenArchetype");
-    const { mvnArchetypeGroupId, mvnArchetypeArtifactId, mvnArchetypeVersion } = mavenArchetype.value.split(",");
-    const groupId = document.getElementById("groupId");
-    const artifactId = document.getElementById("artifactId");
-    const projectVersion = document.getElementById("projectVersion");
     const mvnArchetypeGenerate = document.getElementById("mvnArchetypeGenerate");
 
-    if (isEmpty(groupId) || isEmpty(artifactId) || isEmpty(projectVersion)) {
+    const { mvnArchetypeGroupId, mvnArchetypeArtifactId, mvnArchetypeVersion } = mavenArchetype.value.split(",");
+    const groupId = document.getElementById("groupId");
+    if (emptyCheck(groupId)) {
+        mvnArchetypeGenerate.value = "";
+        return;
+    }
+    const artifactId = document.getElementById("artifactId");
+    if (emptyCheck(artifactId)) {
+        mvnArchetypeGenerate.value = "";
+        return;
+    }
+    const projectVersion = document.getElementById("projectVersion");
+    if (emptyCheck(projectVersion)) {
         mvnArchetypeGenerate.value = "";
         return;
     }
