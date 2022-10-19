@@ -25,6 +25,23 @@ function emptyCheck(element) {
     return false;
 }
 
+function spacesCheck(element) {
+    if (element.value.includes(" ")) {
+        element.style.borderColor = "red";
+        return true; 
+    }
+    element.style.borderColor = "#ccc";
+    return false;
+}
+
+function validateGroupId() {
+    const groupIdElement = document.getElementById("groupId");
+    if (emptyCheck(groupIdElement)) {
+        groupIdElement.setCustomValidity("Please enter a groupId");
+        return false;
+    }
+}
+
 function generateMvnCommand() {
     const mavenArchetype = document.getElementById("mavenArchetype");
     const mvnArchetypeGenerate = document.getElementById("mvnArchetypeGenerate");
@@ -35,7 +52,7 @@ function generateMvnCommand() {
     if (isEmpty(groupId) || isEmpty(artifactId) || isEmpty(projectVersion)) {
         mvnArchetypeGenerate.value = "";
     }
-    if (emptyCheck(groupId)) {
+    if (validateGroupId()) {
         mvnArchetypeGenerate.value = mvnArchetypeGenerate.value + "- Please fill in the groupId\n";
     }
     if (emptyCheck(artifactId)) {
