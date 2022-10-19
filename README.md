@@ -35,11 +35,16 @@ function spacesCheck(element) {
 }
 
 function validateGroupId() {
-    const groupIdElement = document.getElementById("groupId");
-    if (emptyCheck(groupIdElement)) {
-        groupIdElement.setCustomValidity("Please enter a groupId");
+    const element = document.getElementById("groupId");
+    if (emptyCheck(element)) {
+        element.after("<span class='validationMessage' style='color:red;'>Please enter a groupId.</span>");
         return false;
     }
+    if (spacesCheck(element)) {
+        element.after("<span class='validationMessage' style='color:red;'>Please enter a groupId without spaces.</span>");
+        return false;
+    }
+    return true;
 }
 
 function generateMvnCommand() {
