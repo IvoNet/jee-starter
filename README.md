@@ -12,8 +12,12 @@ and [Maven 3+](https://maven.apache.org/download.cgi) (we have tested with Java 
 
 <script>
 
+function isEmpty(element) {
+    return element.value === undefined || element.value === "";
+}
+
 function emptyCheck(element) {
-    if (element.value === "" || element.value === undefined) {
+    if (isEmpty(element)) {
         element.style.borderColor = "red";
         return true; 
     }
@@ -28,17 +32,18 @@ function generateMvnCommand() {
     const { mvnArchetypeGroupId, mvnArchetypeArtifactId, mvnArchetypeVersion } = mavenArchetype.value.split(",");
     const groupId = document.getElementById("groupId");
     if (emptyCheck(groupId)) {
-        mvnArchetypeGenerate.value = "";
-        return;
+        mvnArchetypeGenerate.value = mvnArchetypeGenerate.value + "\n- Please fill in the groupId";
     }
     const artifactId = document.getElementById("artifactId");
     if (emptyCheck(artifactId)) {
-        mvnArchetypeGenerate.value = "";
-        return;
+        mvnArchetypeGenerate.value = mvnArchetypeGenerate.value + "\n- Please fill in the artifactId";
     }
     const projectVersion = document.getElementById("projectVersion");
     if (emptyCheck(projectVersion)) {
-        mvnArchetypeGenerate.value = "";
+        mvnArchetypeGenerate.value = mvnArchetypeGenerate.value + "\n- Please fill in the projectVersion";
+    }
+
+    if (isEmpty(groupId) || isEmpty(artifactId) || isEmpty(projectVersion)) {
         return;
     }
 
