@@ -15,8 +15,7 @@ and [Maven 3+](https://maven.apache.org/download.cgi) (we have tested with Java 
 
 function generateMvnCommand() {
     const mavenArchetype = document.getElementById("mavenArchetype").value;
-    const mvnArchetypeGroupId, mvnArchetypeArtifactId, mvnArchetypeVersion  = mavenArchetype.split(",");
-
+    const { mvnArchetypeGroupId, mvnArchetypeArtifactId, mvnArchetypeVersion } = mavenArchetype.split(",");
     const groupId = document.getElementById("groupId").value;
     const artifactId = document.getElementById("artifactId").value;
     const projectVersion = document.getElementById("projectVersion").value;
