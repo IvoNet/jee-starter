@@ -36,13 +36,13 @@ function generateMvnCommand() {
         mvnArchetypeGenerate.value = "";
     }
     if (emptyCheck(groupId)) {
-        mvnArchetypeGenerate.value = mvnArchetypeGenerate.value + "\n- Please fill in the groupId";
+        mvnArchetypeGenerate.value = mvnArchetypeGenerate.value + "- Please fill in the groupId\n";
     }
     if (emptyCheck(artifactId)) {
-        mvnArchetypeGenerate.value = mvnArchetypeGenerate.value + "\n- Please fill in the artifactId";
+        mvnArchetypeGenerate.value = mvnArchetypeGenerate.value + "- Please fill in the artifactId\n";
     }
     if (emptyCheck(projectVersion)) {
-        mvnArchetypeGenerate.value = mvnArchetypeGenerate.value + "\n- Please fill in the projectVersion";
+        mvnArchetypeGenerate.value = mvnArchetypeGenerate.value + "- Please fill in the projectVersion\n";
     }
     if (isEmpty(groupId) || isEmpty(artifactId) || isEmpty(projectVersion)) {
         return;
