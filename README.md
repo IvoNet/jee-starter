@@ -16,8 +16,10 @@ function generateMvnCommand() {
     const mavenArchetype = document.getElementById("mavenArchetype");
     const { mvnArchetypeGroupId, mvnArchetypeArtifactId, mvnArchetypeVersion } = mavenArchetype.value.split(",");
     const groupId = document.getElementById("groupId");
-    if (groupId.value === "" && groupId.value === undefined) {
+    if (groupId.value === "" || groupId.value === undefined) {
         groupId.style.borderColor = "red";
+    } else {
+        groupId.style.borderColor = "black";
     }
 
     const artifactId = document.getElementById("artifactId");
