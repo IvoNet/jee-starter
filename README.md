@@ -102,7 +102,7 @@ class FormValidator {
 
   validateFields(field) {
 
-    if (field.value === undefined || field.value.trim() === "") {
+    if (field.value.trim() === "") {
       this.setStatus(field, `${field.previousElementSibling.innerText} cannot be blank`, "error")
     } else {
       this.setStatus(field, null, "success")
