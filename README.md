@@ -10,13 +10,13 @@ correctly.
 
 <script>
 function isEmpty(element) {
-    return element.value === undefined || element.value === "";
+    return element.value === undefined || element.value === "undefined"|| element.value.trim() === "";
 }
 
 function generateMvnCommand() {
-    const mavenArchetype = document.getElementById("mavenArchetype").value;
+    const mavenArchetype = document.getElementById("mavenArchetype");
     const mvnArchetypeGenerate = document.getElementById("mvnArchetypeGenerate");
-    const { mvnArchetypeGroupId, mvnArchetypeArtifactId, mvnArchetypeVersion } = mavenArchetype.split(",");
+    const { mvnArchetypeGroupId, mvnArchetypeArtifactId, mvnArchetypeVersion } = mavenArchetype.value.split(",");
     const groupId = document.getElementById("groupId").value;
     const artifactId = document.getElementById("artifactId").value;
     const projectVersion = document.getElementById("projectVersion").value;
