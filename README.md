@@ -48,29 +48,14 @@ function validateGroupId() {
 }
 
 function generateMvnCommand() {
-    const mavenArchetype = document.getElementById("mavenArchetype");
+    const mavenArchetype = document.getElementById("mavenArchetype").value;
     const mvnArchetypeGenerate = document.getElementById("mvnArchetypeGenerate");
-    const { mvnArchetypeGroupId, mvnArchetypeArtifactId, mvnArchetypeVersion } = mavenArchetype.value.split(",");
-    const groupId = document.getElementById("groupId");
-    const artifactId = document.getElementById("artifactId");
-    const projectVersion = document.getElementById("projectVersion");
-    if (isEmpty(groupId) || isEmpty(artifactId) || isEmpty(projectVersion)) {
-        mvnArchetypeGenerate.value = "";
-    }
-    if (validateGroupId()) {
-        mvnArchetypeGenerate.value = mvnArchetypeGenerate.value + "- Please fill in the groupId\n";
-    }
-    if (emptyCheck(artifactId)) {
-        mvnArchetypeGenerate.value = mvnArchetypeGenerate.value + "- Please fill in the artifactId\n";
-    }
-    if (emptyCheck(projectVersion)) {
-        mvnArchetypeGenerate.value = mvnArchetypeGenerate.value + "- Please fill in the projectVersion\n";
-    }
-    if (isEmpty(groupId) || isEmpty(artifactId) || isEmpty(projectVersion)) {
-        return;
-    }
+    const { mvnArchetypeGroupId, mvnArchetypeArtifactId, mvnArchetypeVersion } = mavenArchetype.split(",");
+    const groupId = document.getElementById("groupId").value;
+    const artifactId = document.getElementById("artifactId").value;
+    const projectVersion = document.getElementById("projectVersion").value;
 
-    mvnArchetypeGenerate.value = `mvn archetype:generate -DarchetypeGroupId=${mvnArchetypeGroupId} -DarchetypeArtifactId=${mvnArchetypeArtifactId} -DarchetypeVersion=${mvnArchetypeVersion} -DgroupId=${groupId.value} -DartifactId=${artifactId.value} -Dversion=${projectVersion.value}`;
+    mvnArchetypeGenerate.value = `mvn archetype:generate -DarchetypeGroupId=${mvnArchetypeGroupId} -DarchetypeArtifactId=${mvnArchetypeArtifactId} -DarchetypeVersion=${mvnArchetypeVersion} -DgroupId=${groupId} -DartifactId=${artifactId} -Dversion=${projectVersion}`;
 }
 
 function removeMvnCommand() {
@@ -99,7 +84,7 @@ class FormValidator {
   validateOnChange() {
     let self = this;
 
-    this.form.addEventListener('change', e => {
+    this.form.addEventListener('onChange', e => {
         e.preventDefault();
         self.fields.forEach(field => {
         const input = document.querySelector(`#${field}`);
@@ -113,7 +98,7 @@ class FormValidator {
     this.fields.forEach(field => {
       const input = document.querySelector(`#${field}`);
 
-      input.addEventListener('change', event => {
+      input.addEventListener('onChange', event => {
         self.validateFields(input)
       })
     })
