@@ -71,7 +71,7 @@ class FormValidator {
   }
 
   validateFields(field) {
-    if (field.type === "input") {
+    if (field.type === "text") {
       if (isEmpty(field)){
         this.setStatus(field, `${field.previousElementSibling.innerText} must be filled`, "error");
       }else {
@@ -83,9 +83,6 @@ class FormValidator {
         this.setStatus(field, null, "success")
       }
     }    
-
-
-
   }
 
   setStatus(field, message, status) {
