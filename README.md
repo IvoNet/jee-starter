@@ -73,6 +73,11 @@ function generateMvnCommand() {
     mvnArchetypeGenerate.value = `mvn archetype:generate -DarchetypeGroupId=${mvnArchetypeGroupId} -DarchetypeArtifactId=${mvnArchetypeArtifactId} -DarchetypeVersion=${mvnArchetypeVersion} -DgroupId=${groupId.value} -DartifactId=${artifactId.value} -Dversion=${projectVersion.value}`;
 }
 
+function removeMvnCommand() {
+    const mvnArchetypeGenerate = document.getElementById("mvnArchetypeGenerate");
+    mvnArchetypeGenerate.value = "";
+}
+
 function copyMvnCommand() {
     const mvnArchetypeGenerate = document.getElementById("mvnArchetypeGenerate");
     mvnArchetypeGenerate.select();
@@ -80,13 +85,81 @@ function copyMvnCommand() {
     navigator.clipboard.writeText(document.getElementById("mvnArchetypeGenerate").value);
 }
 
+class FormValidator {
+  constructor(form, fields) {
+    this.form = form;
+    this.fields = fields
+  }
+
+  initialize() {
+    this.validateOnEntry();
+    this.validateOnChange();
+  }
+
+  validateOnChange() {
+    let self = this;
+
+    this.form.addEventListener('submit', e => {
+        e.preventDefault();
+        self.fields.forEach(field => {
+        const input = document.querySelector(`#${field}`);
+        self.validateFields(input)
+      })
+    })
+  }
+
+  validateOnEntry() {
+    let self = this;
+    this.fields.forEach(field => {
+      const input = document.querySelector(`#${field}`);
+
+      input.addEventListener('change', event => {
+        self.validateFields(input)
+      })
+    })
+  }
+
+  validateFields(field) {
+
+    if (field.value === undefined || field.value.trim() === "") {
+      this.setStatus(field, `${field.previousElementSibling.innerText} cannot be blank`, "error")
+    } else {
+      this.setStatus(field, null, "success")
+    }
+
+    if (field.type === "email") {
+      const re = /\S+@\S+\.\S+/;
+      if (re.test(field.value)) {
+        this.setStatus(field, null, "success")
+      } else {
+        this.setStatus(field, "Please enter valid email address", "error")
+      }
+    }
+  }
+
+  setStatus(field, message, status) {
+    const errorMessage = field.parentElement.querySelector('.error-message');
+    if (status === "success") {
+      if (errorMessage) { errorMessage.innerText = "" }
+      field.style = "border-color: #ccc;";
+      generateMvnCommand();
+    }
+
+    if (status === "error") {
+      field.parentElement.querySelector('.error-message').innerText = message;
+      field.style = "border-color: red;";
+      removeMvnCommand();
+    }
+  }
+
+}
 </script>
 
-<form onchange="generateMvnCommand()">
+<form id="form">
     <div class="form-row">
         <div class="form-group" >
             <label for="mavenArchetype">Archetype</label>
-            <select class="form-control" id="mavenArchetype" onchange="generateMvnCommand()">
+            <select class="form-control" id="mavenArchetype">
                 <option value="org.eclipse.starter,jakartaee10-minimal,1.0.0">Jakarta EE 10 Minimal Archetype</option>
                 <option value="org.eclipse.starter,jakartaee9.1-minimal,1.0.0">Jakarta EE 9 Minimal Archetype</option>
                 <option value="org.eclipse.starter,jakartaee8-minimal,1.0.0">Jakarta EE 8 Minimal Archetype</option>
@@ -97,15 +170,18 @@ function copyMvnCommand() {
     <div class="form-row">
         <div class="form-group">
             <label for="groupId">Group</label>
-            <input class="form-control" type="text" id="groupId" value="com.example" onchange="generateMvnCommand()">
+            <input class="form-control" type="text" id="groupId" value="com.example">
+            <span class="error-message"></span> 
         </div>
         <div class="form-group">
             <label for="artifactId">Artifact</label>
-            <input type="text" class="form-control" id="artifactId" value="demo" onchange="generateMvnCommand()">
+            <input type="text" class="form-control" id="artifactId" value="demo">
+            <span class="error-message"></span> 
         </div>
         <div class="form-group">
             <label for="projectVersion">Version</label>
-            <input type="text" class="form-control" id="projectVersion" value="1.0-SNAPSHOT" onchange="generateMvnCommand()">
+            <input type="text" class="form-control" id="projectVersion" value="1.0-SNAPSHOT">
+            <span class="error-message"></span> 
         </div>
     </div>
     <div class="form-group">
@@ -126,7 +202,11 @@ function copyMvnCommand() {
 </form>
 
 <script>
-    generateMvnCommand();
+  const form = document.querySelector('.form');
+  const fields = ["mvnArchetypeGroupId", "mvnArchetypeArtifactId", "mvnArchetypeVersion"];
+  
+  const validator = new FormValidator(form, fields);
+  validator.initialize()
 </script>
 
 ## Example projects
