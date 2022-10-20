@@ -2,16 +2,12 @@ Welcome to the official Eclipse Foundation starter for Jakarta EE. The starter i
 sample code to get you going quickly with simple Jakarta EE microservices projects. The starter will include a web UI in
 a subsequent release.
 
+
 ## Generate Jakarta EE Project
 
-In order to run the Maven Archetype and generate a sample Jakarta EE project, please execute the following. Please
-ensure you have installed a [Java SE 8+ implementation](https://adoptium.net/?variant=openjdk8)
-and [Maven 3+](https://maven.apache.org/download.cgi) (we have tested with Java SE 8, Java SE 11 and Java SE 17).
-
-## Generate an archetype
+In order to run the Maven Archetype and generate Jakarta EE project, fill in the form and the correct command will be generated. Please make sure you have [Maven 3+](https://maven.apache.org/download.cgi) installed and configured correctly.
 
 <script>
-
 function isEmpty(element) {
     return element.value === undefined || element.value === "";
 }
@@ -84,10 +80,10 @@ class FormValidator {
   validateOnChange() {
     let self = this;
 
-    this.form.addEventListener('onChange', e => {
-        e.preventDefault();
+    this.form.addEventListener('change', event => {
+        event.preventDefault();
         self.fields.forEach(field => {
-        const input = document.querySelector(`#${field}`);
+        const input = document.getElementById(field);
         self.validateFields(input)
       })
     })
@@ -96,9 +92,9 @@ class FormValidator {
   validateOnEntry() {
     let self = this;
     this.fields.forEach(field => {
-      const input = document.querySelector(`#${field}`);
+      const input = document.getElementById(field);
 
-      input.addEventListener('onChange', event => {
+      input.addEventListener('change', event => {
         self.validateFields(input)
       })
     })
@@ -200,6 +196,12 @@ class FormValidator {
   validator.initialize();
   generateMvnCommand();
 </script>
+
+## Generate Jakarta EE Sample Project
+
+In order to run the Maven Archetype and generate a sample Jakarta EE project, please execute the following. Please
+ensure you have installed a [Java SE 8+ implementation](https://adoptium.net/?variant=openjdk8)
+and [Maven 3+](https://maven.apache.org/download.cgi) (we have tested with Java SE 8, Java SE 11 and Java SE 17).
 
 ## Example projects
 
