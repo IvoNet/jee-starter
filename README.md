@@ -190,7 +190,7 @@ class FormValidator {
 
 <script>
   const form = document.getElementById('archetypeUI');
-  const fields = ["mvnArchetypeGroupId", "mvnArchetypeArtifactId", "mvnArchetypeVersion"];
+  const fields = ["groupId", "artifactId", "projectVersion"];
   
   const validator = new FormValidator(form, fields);
   validator.initialize();
