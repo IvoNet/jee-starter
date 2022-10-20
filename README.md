@@ -94,7 +94,6 @@ class FormValidator {
   initialize() {
     this.validateOnEntry();
     this.validateOnChange();
-    generateMvnCommand();
   }
 
   validateOnChange() {
@@ -213,6 +212,8 @@ class FormValidator {
   const fields = ["mvnArchetypeGroupId", "mvnArchetypeArtifactId", "mvnArchetypeVersion"];
   
   const validator = new FormValidator(form, fields);
+  validator.initialize();
+  generateMvnCommand();
 </script>
 
 ## Example projects
