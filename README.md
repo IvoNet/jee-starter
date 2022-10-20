@@ -2,45 +2,15 @@ Welcome to the official Eclipse Foundation starter for Jakarta EE. The starter i
 sample code to get you going quickly with simple Jakarta EE microservices projects. The starter will include a web UI in
 a subsequent release.
 
-
 ## Generate Jakarta EE Project
 
-In order to run the Maven Archetype and generate Jakarta EE project, fill in the form and the correct command will be generated. Please make sure you have [Maven 3+](https://maven.apache.org/download.cgi) installed and configured correctly.
+In order to run the Maven Archetype and generate Jakarta EE project, fill in the form and the correct command will be
+generated. Please make sure you have [Maven 3+](https://maven.apache.org/download.cgi) installed and configured
+correctly.
 
 <script>
 function isEmpty(element) {
     return element.value === undefined || element.value === "";
-}
-
-function emptyCheck(element) {
-    if (isEmpty(element)) {
-        element.style.borderColor = "red";
-        return true; 
-    }
-    element.style.borderColor = "#ccc";
-    return false;
-}
-
-function spacesCheck(element) {
-    if (element.value.includes(" ")) {
-        element.style.borderColor = "red";
-        return true; 
-    }
-    element.style.borderColor = "#ccc";
-    return false;
-}
-
-function validateGroupId() {
-    const element = document.getElementById("groupId");
-    if (emptyCheck(element)) {
-        element.after("<span class='validationMessage' style='color:red;'>Please enter a groupId.</span>");
-        return false;
-    }
-    if (spacesCheck(element)) {
-        element.after("<span class='validationMessage' style='color:red;'>Please enter a groupId without spaces.</span>");
-        return false;
-    }
-    return true;
 }
 
 function generateMvnCommand() {
@@ -101,27 +71,21 @@ class FormValidator {
   }
 
   validateFields(field) {
-
-    if (field.value.trim() === "") {
-      this.setStatus(field, `${field.previousElementSibling.innerText} cannot be blank`, "error")
-    } else {
-      this.setStatus(field, null, "success")
-    }
-
-    if (field.value.includes(" ")) {
-      this.setStatus(field, `${field.previousElementSibling.innerText} cannot contain spaces`, "error")
-    } else {
-      this.setStatus(field, null, "success")
-    }
-
-    if (field.type === "email") {
-      const re = /\S+@\S+\.\S+/;
-      if (re.test(field.value)) {
-        this.setStatus(field, null, "success")
-      } else {
-        this.setStatus(field, "Please enter valid email address", "error")
+    if (field.type === "input") {
+      if (isEmpty(field)){
+        this.setStatus(field, `${field.previousElementSibling.innerText} must be filled`, "error");
+      }else {
+          this.setStatus(field, null, "success");
       }
-    }
+      if (field.value.includes(" ")) {
+        this.setStatus(field, `${field.previousElementSibling.innerText} cannot contain spaces`, "error")
+      } else {
+        this.setStatus(field, null, "success")
+      }
+    }    
+
+
+
   }
 
   setStatus(field, message, status) {
