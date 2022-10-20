@@ -99,7 +99,7 @@ class FormValidator {
   validateOnChange() {
     let self = this;
 
-    this.form.addEventListener('submit', e => {
+    this.form.addEventListener('change', e => {
         e.preventDefault();
         self.fields.forEach(field => {
         const input = document.querySelector(`#${field}`);
@@ -123,6 +123,12 @@ class FormValidator {
 
     if (field.value === undefined || field.value.trim() === "") {
       this.setStatus(field, `${field.previousElementSibling.innerText} cannot be blank`, "error")
+    } else {
+      this.setStatus(field, null, "success")
+    }
+
+    if (field.value.includes(" ")) {
+      this.setStatus(field, `${field.previousElementSibling.innerText} cannot contain spaces`, "error")
     } else {
       this.setStatus(field, null, "success")
     }
@@ -155,7 +161,7 @@ class FormValidator {
 }
 </script>
 
-<form id="form">
+<form id="archetypeUI">
     <div class="form-row">
         <div class="form-group" >
             <label for="mavenArchetype">Archetype</label>
@@ -163,7 +169,7 @@ class FormValidator {
                 <option value="org.eclipse.starter,jakartaee10-minimal,1.0.0">Jakarta EE 10 Minimal Archetype</option>
                 <option value="org.eclipse.starter,jakartaee9.1-minimal,1.0.0">Jakarta EE 9 Minimal Archetype</option>
                 <option value="org.eclipse.starter,jakartaee8-minimal,1.0.0">Jakarta EE 8 Minimal Archetype</option>
-                <option value="nl.ivonet,jakartaee8-minimal,1.0.0">Jakarta EE 8 Minimal Archetype</option>
+                <option value="nl.ivonet,jakartaee8-minimal,1.0.0">IvoNet - Jakarta EE 8 Minimal Archetype </option>
             </select>
         </div>
     </div>
@@ -202,11 +208,10 @@ class FormValidator {
 </form>
 
 <script>
-  const form = document.querySelector('.form');
+  const form = document.getElementById('archetypeUI');
   const fields = ["mvnArchetypeGroupId", "mvnArchetypeArtifactId", "mvnArchetypeVersion"];
   
   const validator = new FormValidator(form, fields);
-  validator.initialize()
 </script>
 
 ## Example projects
