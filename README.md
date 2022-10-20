@@ -94,6 +94,7 @@ class FormValidator {
   initialize() {
     this.validateOnEntry();
     this.validateOnChange();
+    generateMvnCommand();
   }
 
   validateOnChange() {
