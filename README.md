@@ -51,7 +51,8 @@ class FormValidator {
     let self = this;
 
     this.form.addEventListener('change', event => {
-        event.preventDefault();
+        // Disabled to see if the regular HTML5 browser validation would trigger again.
+        // event.preventDefault();
         self.fields.forEach(field => {
         const input = document.getElementById(field);
         self.validateFields(input)
@@ -118,17 +119,17 @@ class FormValidator {
     <div class="form-row">
         <div class="form-group">
             <label for="groupId">Group</label>
-            <input class="form-control" type="text" id="groupId" value="com.example">
+            <input class="form-control" type="text" id="groupId" placeholder="com.example" pattern="[a-z][a-z0-9_]*(\.[a-z0-9_]+)+[0-9a-z_]$" minlength="1" title="Group should only contain lowercase letters and be dot-separated.">
             <span class="error-message"></span> 
         </div>
         <div class="form-group">
             <label for="artifactId">Artifact</label>
-            <input type="text" class="form-control" id="artifactId" value="demo">
+            <input type="text" class="form-control" id="artifactId" placeholder="demo" pattern="[a-z]+(-[a-z]+)*$" minlength="1" title="ArtifactId should only contain lowercase letters and hyphens (-).">
             <span class="error-message"></span> 
         </div>
         <div class="form-group">
             <label for="projectVersion">Version</label>
-            <input type="text" class="form-control" id="projectVersion" value="1.0-SNAPSHOT">
+            <input type="text" class="form-control" id="projectVersion" placeholder="1.0-SNAPSHOT" minlength="1">
             <span class="error-message"></span> 
         </div>
     </div>
